@@ -1,0 +1,57 @@
+<div class="flex justify-center px-5">
+    <div class="w-full max-w-7xl py-5 flex justify-between items-center">
+        <div>
+            <a href="/">logo</a>
+        </div>
+        <div class="hidden md:flex gap-10">
+            <% if (session.loggedin && session.role === 'admin') { %>
+                <a href="/admin">admin</a>
+            <% } %>
+            <% if (session.loggedin) { %>
+                <a href="/profile">โปรไฟล์</a>
+                <a href="/logout">ออกสู่ระบบ</a>
+            <% } else { %>
+                <a href="/login">เข้าสู่ระบบ</a>
+                <a href="/register">สมัคสมาชิก</a>
+            <% } %>
+        </div>
+        <button id="burgerMenu" class="md:hidden text-indigo-500">
+            <ion-icon name="menu-outline"></ion-icon>
+        </button>
+    </div>
+</div>
+
+<div id="mobileMenu" class="backdrop-blur-sm fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-80 hidden z-50">
+    <div class="flex flex-col items-center justify-center h-full">
+        <% if (session.loggedin && session.role === 'admin') { %>
+            <a href="/admin" class="text-white py-2">หน้าแอดมิน</a>
+        <% } %>
+        <% if (session.loggedin) { %>
+            <a href="/profile" class="text-white border px-5 py-1 rounded-md">โปรไฟล์</a>
+            <a href="/logout" class="text-white py-2">ออกสู่ระบบ</a>
+        <% } else { %>
+            <a href="/login" class="text-white border px-5 py-1 rounded-md">เข้าสู่ระบบ</a>
+            <a href="/register" class="text-white py-2">สมัคสมาชิก</a>
+        <% } %>
+        <button id="closeMenu" class="text-white absolute top-5 right-5">
+            <ion-icon name="close"></ion-icon>
+        </button>
+    </div>
+</div>
+
+<script>
+    document.getElementById('burgerMenu').addEventListener('click', function() {
+        var mobileMenu = document.getElementById('mobileMenu');
+        if (mobileMenu.classList.contains('hidden')) {
+            mobileMenu.classList.remove('hidden');
+            this.classList.add('hidden');
+        } else {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+    document.getElementById('closeMenu').addEventListener('click', function() {
+        var mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.add('hidden');
+        document.getElementById('burgerMenu').classList.remove('hidden');
+    });
+</script>
